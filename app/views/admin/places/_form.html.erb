@@ -1,0 +1,71 @@
+<%= form_for([:admin, place]) do |form| %>
+  <% if place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
+
+      <ul>
+      <% place.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if !place.user_id? %>
+  <div class="form-group">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :app_user_id, class: "form-control" %>
+  </div>
+  <% else %>
+    <%= place.user.name.to_s + " (" + place.user.email.to_s + ")" %>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :city_id %><br />
+    <%= form.select(:city_id, City.all.collect {|a| [a.name, a.id]}, {}, { :class => "form-control"}) %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :place_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :expires_at %>
+    <%= form.date_select :expires_at, id: :place_expires_at %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: :place_address, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :place_description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, id: :place_phone, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :place_email, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, id: :place_latitude, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, id: :place_longitude, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

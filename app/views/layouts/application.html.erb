@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Meniu</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <%= render "partials/header" %>
+  <section>
+    <%= render "partials/alerts" %>
+    <%= yield %>
+  </section>
+  <footer>
+    <div class="container">
+      <p>&copy; 2017 By <a href="//kalvinman.com">Kalvin Manson</a></p>
+    </div>
+  </footer>
+    
+  </body>
+</html>

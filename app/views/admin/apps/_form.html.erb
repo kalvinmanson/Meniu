@@ -1,0 +1,40 @@
+<%= form_for([:admin, app]) do |form| %>
+  <% if app.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(app.errors.count, "error") %> prohibited this app from being saved:</h2>
+
+      <ul>
+      <% app.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if !app.user_id? %>
+  <div class="form-group">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :app_user_id, class: "form-control" %>
+  </div>
+  <% else %>
+    <%= app.user.name.to_s + " (" + app.user.email.to_s + ")" %>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :public_key %>
+    <%= form.text_field :public_key, id: :app_public_key, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :private_key %>
+    <%= form.text_field :private_key, id: :app_private_key, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :domain %>
+    <%= form.text_field :domain, id: :app_domain, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h1><%= @place.name %></h1>
+    </div>
+    <%= image_tag @place.picture.url(:medium), class: "img-responsive" %>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="well">
+            <p>
+              City: <%= @place.city.name %><br />
+              Contact email: <%= @place.email %><br />
+              Address: <%= @place.address %><br />
+              Phone: <%= @place.phone %>
+            </p>
+          </div>
+          <%= simple_format(@place.description) %>
+
+          <div id="map" style="height: 400px;"></div>
+          <script>
+
+            function initMap() {
+              var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
+
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 18,
+                center: myLatLng
+              });
+
+              var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: '<%= @place.name %>'
+              });
+            }
+          </script>
+          <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBAnniJ7HwFQYaggqcF_03-P4XB3-7y6M&callback=initMap">
+          </script>
+
+        </div>
+        <div class="col-sm-4">
+          <%= link_to 'All', place_plates_path(@place), class: "btn btn-default pull-right" %>
+          <h4>Plates</h4>
+          <div class="list-group">
+            <% @place.plates.each do |plate| %>
+              <div class="list-group-item <%= plate.favored ? 'active' : '' %>">
+                <h4 class="list-group-item-heading">
+                  <%= link_to(plate.name, place_plate_path(@place, plate)) %>  
+                </h4>
+                <span class="badge">$ <%= plate.price %> COP</span>
+                <p class="list-group-item-text">
+                  Category: <%= plate.category %><br />
+                  Options: <%= plate.options %>
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <%= link_to(@place.user, html_options = {}) do %>
+        <%= image_tag @place.user.avatar.url(:thumb), class: "img-responsive pull-left" %>
+        <%= @place.user.name %><br />
+        <%= @place.user.city.name %>
+      <% end %>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+
+  <p>
+    <strong>Deleted at:</strong>
+    <%= @place.deleted_at %>
+  </p>
+</div>

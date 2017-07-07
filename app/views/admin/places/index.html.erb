@@ -1,0 +1,38 @@
+<div class="container">
+  <%= link_to '<i class="fa fa-plus"></i> New Place'.html_safe, new_admin_place_path, class: "btn btn-primary pull-right" %>
+  <h1>Places</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>City</th>
+        <th>Name</th>
+        <th>Expires at</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Deleted at</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @places.each do |place| %>
+        <tr>
+          <td><%= place.user.email %></td>
+          <td><%= place.city.name %></td>
+          <td><%= place.name %></td>
+          <td><%= place.expires_at %></td>
+          <td><%= place.address %></td>
+          <td><%= place.phone %></td>
+          <td><%= place.email %></td>
+          <td><%= place.deleted_at %></td>
+          <td><%= link_to 'Show', admin_place_path(place) %></td>
+          <td><%= link_to 'Edit', edit_admin_place_path(place) %></td>
+          <td><%= link_to 'Destroy', admin_place_path(place), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,16 @@
+<div class="row">
+	<div class="col-sm-3">
+		<%= image_tag @place.picture.url(:thumb), class: "img-responsive" %>
+	</div>
+	<div class="col-sm-9">
+		<div class="well">
+		  <h1><%= link_to @place.name, place_path(@place) %></h1>
+          <p>
+            City: <%= @place.city.name %><br />
+            Contact email: <%= @place.email %><br />
+            Address: <%= @place.address %><br />
+            Phone: <%= @place.phone %>
+          </p>
+        </div>
+	</div>
+</div>

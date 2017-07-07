@@ -1,0 +1,57 @@
+<%= form_for([:admin, user]) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :city_id %>
+    <%= form.text_field :city_id, id: :user_city_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :uid %>
+    <%= form.text_field :uid, id: :user_uid, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :provider %>
+    <%= form.text_field :provider, id: :user_provider, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :role %>
+    <%= form.text_field :role, id: :user_role, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :user_name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :active %>
+    <%= form.check_box :active, id: :user_active %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, id: :user_latitude, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, id: :user_longitude, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,48 @@
+<div class="container">
+<% if @places.count == 0 %>
+  <div class="jumbotron">
+    <h1>Are you new?</h1>
+    <h3>You don't have any place created, your adventure begin here.</h3>
+    <p align="center">
+      <%= link_to '<i class="fa fa-plus"></i> New Place'.html_safe, new_place_path, class: "btn btn-primary btn-lg" %>
+    </p>
+  </div>
+<% else  %>
+
+  <% @places.each do |place| %>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <span class="pull-right">
+          Expires at: <%= place.expires_at.to_formatted_s(:long) %>
+        </span>
+        <h4><%= place.name %></h4>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <%= image_tag place.picture.url(:thumb), class: "img-responsive" %>
+          </div>
+          <div class="col-sm-8">
+            <div class="well">
+              <p>
+                City: <%= place.city.name %><br />
+                Contact email: <%= place.email %><br />
+                Address: <%= place.address %><br />
+                Phone: <%= place.phone %>
+              </p>
+            </div>
+            <%= simple_format(place.description) %>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <%= link_to 'Destroy', place_path(place), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default pull-right" %>
+        <%= link_to 'Show', place_path(place), class: "btn btn-default" %>
+        <%= link_to 'Edit', edit_place_path(place), class: "btn btn-default" %>
+        <%= link_to 'Manage Plates', place_plates_path(place), class: "btn btn-default" %>
+      </div>
+    </div>
+  <% end %>
+
+<% end %>
+</div>

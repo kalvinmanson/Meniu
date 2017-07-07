@@ -1,0 +1,39 @@
+<div class="container">
+  <%= link_to 'New Plate', new_admin_plate_path, class: "btn btn-primary pull-right" %>
+  <h1>Plates</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Favored</th>
+        <th>Tags</th>
+        <th>Options</th>
+        <th>Diners</th>
+        <th>Active</th>
+        <th>Deleted at</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @plates.each do |plate| %>
+        <tr>
+          <td><%= plate.place.name %></td>
+          <td><%= plate.name %></td>
+          <td><%= plate.category %></td>
+          <td><%= plate.favored %></td>
+          <td><%= plate.tags %></td>
+          <td><%= plate.options %></td>
+          <td><%= plate.diners %></td>
+          <td><%= plate.active %></td>
+          <td><%= plate.deleted_at %></td>
+          <td><%= link_to 'Show', admin_plate_path(plate) %></td>
+          <td><%= link_to 'Edit', edit_admin_plate_path(plate) %></td>
+          <td><%= link_to 'Destroy', admin_plate_path(plate), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

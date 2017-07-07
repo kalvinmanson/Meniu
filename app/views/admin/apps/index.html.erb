@@ -1,0 +1,31 @@
+<div class="container">
+
+<%= link_to 'New App', new_admin_app_path, class: "btn btn-primary pull-right" %>
+<h1>Apps</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Public key</th>
+      <th>Private key</th>
+      <th>Domain</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @apps.each do |app| %>
+      <tr>
+        <td><%= app.user.email %></td>
+        <td><%= app.public_key %></td>
+        <td><%= app.private_key %></td>
+        <td><%= app.domain %></td>
+        <td><%= link_to 'Show', admin_app_path(app) %></td>
+        <td><%= link_to 'Edit', edit_admin_app_path(app) %></td>
+        <td><%= link_to 'Destroy', admin_app_path(app), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  place: one
+  name: MyString
+  content: MyText
+  category: MyString
+  favored: false
+  tags: MyString
+  options: MyString
+  diners: 1
+  active: false
+  deleted_at: 2017-07-02 00:26:59
+
+two:
+  place: two
+  name: MyString
+  content: MyText
+  category: MyString
+  favored: false
+  tags: MyString
+  options: MyString
+  diners: 1
+  active: false
+  deleted_at: 2017-07-02 00:26:59

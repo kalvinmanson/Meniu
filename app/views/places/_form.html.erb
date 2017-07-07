@@ -1,0 +1,101 @@
+<%= form_for([place]) do |form| %>
+  <% if place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
+
+      <ul>
+      <% place.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, id: :place_name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :picture %>
+      <%= image_tag place.picture.url(:medium), class: "img-responsive" %>
+      <%= form.file_field :picture, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :description %>
+      <%= form.text_area :description, id: :place_description, class: "form-control", rows: 14 %>
+    </div>
+    <div class="form-group">
+      <%= form.label :phone %>
+      <%= form.text_field :phone, id: :place_phone, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :email %>
+      <%= form.text_field :email, id: :place_email, class: "form-control" %>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="form-group">
+      <%= form.label :city_id %><br />
+      <%= form.select(:city_id, City.all.collect {|a| [a.name, a.id]}, {}, { :class => "form-control"}) %>
+    </div>
+    <div class="form-group">
+      <%= form.label :address %>
+      <%= form.text_field :address, id: :place_address, class: "form-control" %>
+    </div>
+    <%= form.hidden_field :latitude, id: :latitude, :class => "form-control" %>
+    <%= form.hidden_field :longitude, id: :longitude, :class => "form-control" %>
+    <div id="map" style="height: 400px;"></div>
+    <% 
+      if place.latitude.present? && place.latitude != 0
+        maplat = place.latitude
+        maplng = place.longitude
+      else
+        maplat = request.location.latitude
+        maplng = request.location.longitude
+      end
+    %>
+    <script>
+          // The following example creates a marker in Stockholm, Sweden using a DROP
+          // animation. Clicking on the marker will toggle the animation between a BOUNCE
+          // animation and no animation.
+          var marker;
+          function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 13,
+              center: {lat: <%= maplat %>, lng: <%= maplng %>}
+            });
+            marker = new google.maps.Marker({
+              map: map,
+              draggable: true,
+              animation: google.maps.Animation.DROP,
+              position: {lat: <%= maplat %>, lng: <%= maplng %>}
+            });
+            marker.addListener('dragend', function() {
+              newLocation = marker.getPosition();
+              console.log(newLocation.lat() + '-' + newLocation.lng());
+              document.getElementById("latitude").value = newLocation.lat();
+              document.getElementById("longitude").value = newLocation.lng();
+              map.setCenter(newLocation);
+            });
+          }
+          function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+              marker.setAnimation(null);
+            } else {
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+          }
+        </script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBAnniJ7HwFQYaggqcF_03-P4XB3-7y6M&callback=initMap">
+        </script>
+  </div>
+</div>
+<p align="center">
+  <%= form.submit "Save", class: "btn btn-primary btn-lg" %>
+</p>
+
+  
+<% end %>

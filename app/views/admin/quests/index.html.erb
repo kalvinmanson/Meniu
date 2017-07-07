@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Quests</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Quest</th>
+        <th>Result</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @quests.each do |quest| %>
+        <tr>
+          <td><%= quest.user.email %></td>
+          <td><%= quest.quest %></td>
+          <td><%= quest.result %></td>
+          <td><%= link_to 'Destroy', admin_quest_path(quest), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

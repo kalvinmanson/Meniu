@@ -1,0 +1,30 @@
+<div class="container">
+  <%= render "partials/place", locals: { place: @place } %>
+  <hr>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4><%= @plate.name %></h4>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-7">
+          <p>
+            Category: <%= @plate.category %><br />
+            Tags: <%= @plate.tags %><br />
+            Options: <%= @plate.options %><br />
+            Diners: <%= @plate.diners %><br />
+            Category: <%= @plate.category %>
+          </p>
+          <h4>Price: $ <%= @plate.price %> COP</h4>
+          <%= simple_format(@plate.content) %>
+        </div>
+        <div class="col-sm-5">
+          <%= image_tag @plate.picture.url(:medium), class: "img-responsive" %>
+        </div>
+      </div>
+    </div>
+    
+    
+            
+  </div>
+</div>

@@ -1,0 +1,88 @@
+rails g scaffold City name:string
+rails g scaffold User city:references uid:string provider:string role:string name:string active:boolean latitude:float longitude:float
+rails g scaffold Place city:references name:string expires_at:date address:string description:text phone:string email:string latitude:float longitude:float deleted_at:datetime:index
+rails g scaffold Plate place:references name:string content:text category:string favored:boolean tags:string options:string diners:integer active:boolean deleted_at:datetime:index
+rails g scaffold Quest user:references quest:string result:text
+rails g scaffold Visit user:references place:references plate:references confirmed:boolean rank:integer comments:text
+rails g scaffold App user:references public_key:string private_key:string domain:string
+rails g scaffold Token user:references app:references token:string expires_at:datetime
+
+
+City
+	name:string
+
+Users
+	city:references
+	uid:string
+	provider:string
+	role:string
+	name:string
+	active:boolean
+	latitude:float
+	longitude:float
+
+Places
+	city:references
+	name:string
+	expires_at:date
+	address:string
+	description:text
+	phone:string
+	email:string
+	latitude:float
+	longitude:float
+	deleted_at:datetime:index
+
+Plates
+	place:references
+	name:string
+	content:text
+	category:string
+	favored:boolean
+	tags:string
+	options:string
+	diners:integer
+	active:boolean
+	deleted_at:datetime:index
+
+Quests
+	user:references
+	quest:string
+	result:text
+
+Visits
+	user:references
+	place:references
+	plate:references
+	confirmed:boolean
+	rank:integer
+	comments:text
+	
+Apps
+	user:references
+	public_key:string
+	private_key:string
+	domain:string
+
+Tokens
+	user:reference
+	app:references
+	token:string
+	expires_at:datetime
+
+Informes:
+	-Nerby Users
+	-
+
+GEMFILE
+
+gem 'acts_as_paranoid', '~> 0.5.0'
+
+
+Todo list
+
+missing files
+socialization
+cancancan*
+
+deploy
