@@ -9,7 +9,8 @@ class PlacesController < ApplicationController
   # GET /places
   # GET /places.json
   def index
-    @places = Place.all
+    q = params[:q]
+    @places = Place.closest(:origin => current_user).limit(2)
   end
 
   # GET /places/1

@@ -1,6 +1,9 @@
 class Place < ApplicationRecord
 
   acts_as_paranoid
+  acts_as_mappable :default_units => :kms,
+                   :lat_column_name => :latitude,
+                   :lng_column_name => :longitude
   
   belongs_to 	:user
   belongs_to 	:city
@@ -21,4 +24,5 @@ class Place < ApplicationRecord
       errors.add(:expires_at, "can't be in the past")
     end
   end
+
 end

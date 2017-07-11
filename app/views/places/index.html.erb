@@ -1,38 +1,75 @@
-<div class="container">
-  <%= link_to '<i class="fa fa-plus"></i> New Place'.html_safe, new_place_path, class: "btn btn-primary pull-right" %>
-  <h1>Places</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-9">
+      <div id="map" style="height: 1000px"></div>
+      <script>
+        // Note: This example requires that you consent to location sharing when
+        // prompted by your browser. If you see the error "The Geolocation service
+        // failed.", it means you probably did not give permission for the browser to
+        // locate you.
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>City</th>
-        <th>Name</th>
-        <th>Expires at</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Deleted at</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+        function initMap() {
+          var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 15
+          });
+          var infoWindow = new google.maps.InfoWindow({map: map});
 
-    <tbody>
-      <% @places.each do |place| %>
-        <tr>
-          <td><%= place.user.email %></td>
-          <td><%= place.city.name %></td>
-          <td><%= place.name %></td>
-          <td><%= place.expires_at %></td>
-          <td><%= place.address %></td>
-          <td><%= place.phone %></td>
-          <td><%= place.email %></td>
-          <td><%= place.deleted_at %></td>
-          <td><%= link_to 'Show', place_path(place) %></td>
-          <td><%= link_to 'Edit', edit_place_path(place) %></td>
-          <td><%= link_to 'Destroy', place_path(place), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+          // Try HTML5 geolocation.
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+
+              infoWindow.setPosition(pos);
+              infoWindow.setContent('Location found.');
+              map.setCenter(pos);
+            }, function() {
+              handleLocationError(true, infoWindow, map.getCenter());
+            });
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+
+          <% @places.each do |place| %>
+          var marker<%= place.id %> = new google.maps.Marker({
+            position: {lat: <%= place.latitude %>, lng: <%= place.longitude %>},
+            map: map,
+            title: '<%= place.name %>'
+          });
+          <% end %>
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+          infoWindow.setPosition(pos);
+          infoWindow.setContent(browserHasGeolocation ?
+                                'Error: The Geolocation service failed.' :
+                                'Error: Your browser doesn\'t support geolocation.');
+        }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBAnniJ7HwFQYaggqcF_03-P4XB3-7y6M&callback=initMap">
+      </script>
+
+    </div>
+    <div class="col-sm-3">
+      <div class="list-group">
+        <% @places.each do |place| %>
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">
+              <%= link_to(place.name, place_path(place)) %>  
+            </h4>
+            <span class="badge">$ gggg COP</span>
+            <p class="list-group-item-text">
+              Category: <br />
+              Options: 
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

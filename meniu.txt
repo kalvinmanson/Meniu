@@ -81,8 +81,6 @@ gem 'acts_as_paranoid', '~> 0.5.0'
 
 Todo list
 
-missing files
-socialization
-cancancan*
-
-deploy
+-place search
+-!!update current_user location all time
+-fin by children model in places
