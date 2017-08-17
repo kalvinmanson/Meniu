@@ -5,6 +5,10 @@ class WebController < ApplicationController
 
 	end
 
+	def how
+
+	end
+
 	private
 	def find_model
 		#@model = Model.find(params[:id]) if params[:id]
