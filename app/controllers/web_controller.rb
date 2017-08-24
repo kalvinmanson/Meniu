@@ -17,6 +17,12 @@ class WebController < ApplicationController
 			session[:latitude] = request.location.latitude
 			session[:longitude] = request.location.longitude
 		end
+
+		if current_user.present?
+			current_user.latitude = session[:latitude]
+			current_user.longitude = session[:longitude]
+			current_user.save
+		end
 		render json: '{"latitude": "'+ session[:latitude] +'", "longitude": "'+ session[:longitude] +'"}'
 	end
 

@@ -41,6 +41,7 @@ gem 'bootstrap-tagsinput-rails'
 gem 'will_paginate', '~> 3.0.6'
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 gem 'actionmailer' #Pendiente instalacion
 gem 'jquery-turbolinks'
 gem 'socialization' #Configure in model
