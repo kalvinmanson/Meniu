@@ -9,7 +9,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  devise :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
+  devise :omniauthable, :omniauth_providers => [:google_oauth2,:facebook]
          
   validates :email, presence: true
   validates :name, presence: true
@@ -33,7 +33,8 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    #where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    where(email: auth.info.email).first_or_create do |user|
       user.city = City.first
       user.role = "User"
       user.email = auth.info.email
