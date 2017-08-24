@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem "font-awesome-rails"
+gem 'bootstrap-tagsinput-rails'
 gem 'will_paginate', '~> 3.0.6'
 gem 'devise'
 gem 'omniauth-facebook'

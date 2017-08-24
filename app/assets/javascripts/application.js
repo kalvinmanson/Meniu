@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require bootstrap-sprockets
+//= require bootstrap-tagsinput
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
@@ -19,6 +20,29 @@
 	
 $(document).on('turbolinks:load', function() {
 
-	
+	function getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(showPosition);
+	    }
+	}
+	function showPosition(position) {
+
+	    $('#latitude').val(position.coords.latitude);
+	    $('#longitude').val(position.coords.longitude);
+
+	    $.ajax({
+		  url: "/set_location?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude
+		}).done(function() {
+			console.log("Session saved Lat: "+position.coords.latitude+", Lng: "+position.coords.longitude);
+		});
+	}
+
+	var obtener = getLocation();
+
+	//Set options in field
+	$(".tr_options").click( function() {
+		var option = $(this).data('option');
+		alert("hola mundo " + option);
+	});
 
 });

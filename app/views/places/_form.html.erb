@@ -44,8 +44,8 @@
       <%= form.label :address %>
       <%= form.text_field :address, id: :place_address, class: "form-control" %>
     </div>
-    <%= form.hidden_field :latitude, id: :latitude, :class => "form-control" %>
-    <%= form.hidden_field :longitude, id: :longitude, :class => "form-control" %>
+    <%= form.hidden_field :latitude, :class => "form-control" %>
+    <%= form.hidden_field :longitude, :class => "form-control" %>
     <div id="map" style="height: 400px;"></div>
     <% 
       if place.latitude.present? && place.latitude != 0
@@ -75,8 +75,8 @@
             marker.addListener('dragend', function() {
               newLocation = marker.getPosition();
               console.log(newLocation.lat() + '-' + newLocation.lng());
-              document.getElementById("latitude").value = newLocation.lat();
-              document.getElementById("longitude").value = newLocation.lng();
+              document.getElementById("place_latitude").value = newLocation.lat();
+              document.getElementById("place_longitude").value = newLocation.lng();
               map.setCenter(newLocation);
             });
           }

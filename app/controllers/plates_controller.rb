@@ -4,6 +4,7 @@ class PlatesController < ApplicationController
   
   before_action :set_plate, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:show]
   before_action :set_place
 
   # GET /plates
@@ -15,6 +16,7 @@ class PlatesController < ApplicationController
   # GET /plates/1
   # GET /plates/1.json
   def show
+
   end
 
   # GET /plates/new
@@ -63,7 +65,7 @@ class PlatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plate_params
-      params.require(:plate).permit(:place_id, :picture, :name, :content, :category, :favored, :tags, :options, :diners, :price, :active, :deleted_at)
+      params.require(:plate).permit(:place_id, :picture, :name, :content, :category, :favored, :tags, {:options => []}, :diners, :price, :active, :deleted_at)
     end
 
     def set_place

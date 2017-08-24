@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 	root to: "web#index"
 	get '/places/my', to: 'places#my'
 	get '/how-it-works', to: 'web#how'
+	get '/set_location', to: 'web#set_location'
 	resources :places do
 	  resources :plates
 	end

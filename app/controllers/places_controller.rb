@@ -9,8 +9,38 @@ class PlacesController < ApplicationController
   # GET /places
   # GET /places.json
   def index
-    q = params[:q]
-    @places = Place.closest(:origin => current_user).limit(2)
+    @q = search_params[:q]
+    @latitude = search_params[:latitude]
+    @longitude = search_params[:longitude]
+    @min_price = search_params[:min_price]
+    @max_price = search_params[:max_price]
+    @options = search_params[:options]
+    @category = search_params[:category]
+    @plates = Plate.where('plates.name LIKE "%"?"%"', @q).or(Plate.where('plates.content LIKE "%"?"%"', @q)).joins(:place).by_distance(:origin => [@latitude,@longitude])
+    #if isset options
+    if @options.present?
+      @options.each do |option|
+        @plates = @plates.where('plates.options LIKE "%?%"', option)
+      end
+    else
+      @options = []
+    end
+    #if isset category
+    if @category.present? && @category != "ALL"
+        @plates = @plates.where('plates.category = ?', @category)
+    end
+    #if prices
+    if @min_price.present?
+        @plates = @plates.where('plates.price > ?', @min_price)
+    end
+    #if prices
+    if @max_price.present?
+        @plates = @plates.where('plates.price < ?', @max_price)
+    end
+
+
+    @plates = @plates.limit(100)
+    #group
   end
 
   # GET /places/1
@@ -66,6 +96,11 @@ class PlacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
-      params.require(:place).permit(:city_id, :name, :picture, :address, :description, :phone, :email, :latitude, :longitude)
+      params.require(:place).permit(:city_id, :name, :picture, :address, :description, :phone, :email, :latitude, :longitude, :q)
     end
+
+    def search_params
+      params.permit(:q, :latitude, :longitude, {:options => []}, :category, :min_price, :max_price)
+    end
+
 end

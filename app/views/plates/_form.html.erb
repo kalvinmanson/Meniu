@@ -30,7 +30,7 @@
   <div class="col-sm-6">
     <div class="form-group">
       <%= form.label :category %>
-      <%= form.text_field :category, id: :plate_category, class: "form-control" %>
+      <%= form.select(:category, @plate_lists[0]['categories'].collect {|a| [a, a]}, {}, { class: 'form-control', id: :plate_category }) -%>
     </div>
 
     <div class="form-group">
@@ -40,18 +40,16 @@
 
     <div class="form-group">
       <%= form.label :tags %>
-      <%= form.text_field :tags, id: :plate_tags, class: "form-control" %>
+      <%= form.text_field :tags, id: :plate_tags, 'data-role'=>'tagsinput', class: "form-control" %>
     </div>
 
-    <div class="form-group">
-      <%= form.label :options %>
-      <%= form.text_field :options, id: :plate_options, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :diners %>
-      <%= form.number_field :diners, id: :plate_diners, class: "form-control" %>
-    </div>
+    <% @plate_lists[0]['options'].each do |option| %>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="plate[options][]" value="<%= option %>" <%= "checked" if plate.options.include? option %>> <%= option %>
+        </label>
+      </div>
+    <% end %>
 
     <div class="form-group">
       <%= form.label :active %>

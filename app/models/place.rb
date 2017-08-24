@@ -1,14 +1,16 @@
 class Place < ApplicationRecord
 
   acts_as_paranoid
-  acts_as_mappable :default_units => :kms,
-                   :lat_column_name => :latitude,
-                   :lng_column_name => :longitude
   
   belongs_to 	:user
   belongs_to 	:city
   has_many		:plates, :dependent => :delete_all
   has_many		:visits, :dependent => :delete_all
+
+  
+  acts_as_mappable :default_units => :kms,
+                   :lat_column_name => :latitude,
+                   :lng_column_name => :longitude
 
   validates :name, presence: true
   validate :expiration_date_cannot_be_in_the_past
