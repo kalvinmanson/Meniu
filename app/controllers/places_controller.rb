@@ -20,7 +20,7 @@ class PlacesController < ApplicationController
     #if isset options
     if @options.present?
       @options.each do |option|
-        @plates = @plates.where('plates.options LIKE "%?%"', option)
+        @plates = @plates.where('plates.options LIKE "%"?"%"', option)
       end
     else
       @options = []
