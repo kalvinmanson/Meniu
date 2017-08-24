@@ -43,6 +43,9 @@
       <%= form.text_field :tags, id: :plate_tags, 'data-role'=>'tagsinput', class: "form-control" %>
     </div>
 
+    <% if !plate.options.present?
+        plate.options = []
+      end %>
     <% @plate_lists[0]['options'].each do |option| %>
       <div class="checkbox">
         <label>
