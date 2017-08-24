@@ -21,20 +21,35 @@
 $(document).on('turbolinks:load', function() {
 
 	function getLocation() {
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(showPosition);
-	    }
-	}
-	function showPosition(position) {
 
-	    $('#latitude').val(position.coords.latitude);
-	    $('#longitude').val(position.coords.longitude);
+		var options = {
+		  enableHighAccuracy: true,
+		  timeout: 27000,
+		  maximumAge: 30000
+		};
 
-	    $.ajax({
-		  url: "/set_location?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude
-		}).done(function() {
-			console.log("Session saved Lat: "+position.coords.latitude+", Lng: "+position.coords.longitude);
-		});
+		function success(pos) {
+		  var crd = pos.coords;
+
+		  console.log('Your current position is:');
+		  console.log('Latitude : ' + crd.latitude);
+		  console.log('Longitude: ' + crd.longitude);
+		  console.log('More or less ' + crd.accuracy + ' meters.');
+
+		  	$('#latitude').val(crd.latitude);
+		    $('#longitude').val(crd.longitude);
+
+		    $.ajax({
+			  url: "/set_location?latitude="+crd.latitude+"&longitude="+crd.longitude
+			});
+		};
+
+		function error(err) {
+		  console.warn('ERROR(' + err.code + '): ' + err.message);
+		};
+
+		navigator.geolocation.getCurrentPosition(success, error, options);
+
 	}
 
 	var obtener = getLocation();
