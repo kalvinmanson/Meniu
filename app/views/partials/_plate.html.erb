@@ -1,0 +1,23 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <span class="badge pull-right"><h5>$ <%= plate.price %> COP</h5></span>
+    <h4><%= plate.name %></h4>            
+  </div>
+  <%= link_to image_tag(plate.picture.url(:medium), class: "img-responsive"), place_plate_path(@place, plate), title: plate.name + " | " + plate.place.name %>
+  <div class="panel-body">
+    <p>
+      Category: <%= plate.category %><br />
+      Tags: <%= plate.tags %><br />
+      Options: <%= plate.options %><br />
+      Diners: <%= plate.diners %><br />
+      Category: <%= plate.category %>
+    </p>
+  </div>
+  <% if current_user == @place.user %>
+    <div class="panel-footer">
+      <%= link_to 'Show', place_plate_path(@place, plate), class: "btn btn-default" %>
+      <%= link_to 'Edit', edit_place_plate_path(@place, plate), class: "btn btn-default" %>
+      <%= link_to '<i class="fa fa-trash"></i> Destroy'.html_safe, place_plate_path(plate.place, plate), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-xs pull-right" %>
+    </div>
+  <% end %>
+</div>

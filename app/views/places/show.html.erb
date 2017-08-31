@@ -15,6 +15,17 @@
               Phone: <%= @place.phone %>
             </p>
           </div>
+          <!-- List plates -->
+          <%= link_to '<i class="fa fa-cutlery"></i> View all plates'.html_safe, place_plates_path(@place), class: "btn btn-success pull-right" %>
+            <h2>Most popular plates</h2>
+          <div class="row">
+            <% @place.plates.limit(2).each do |plate| %>
+              <div class="col-sm-6">
+                <%= render "partials/plate", :plate => plate %>
+              </div>
+            <% end %>
+          </div>
+          <!-- /list plates -->
           <%= simple_format(@place.description) %>
 
           <div id="map" style="height: 400px;"></div>
@@ -41,22 +52,11 @@
 
         </div>
         <div class="col-sm-4">
-          <%= link_to 'All', place_plates_path(@place), class: "btn btn-default pull-right" %>
-          <h4>Plates</h4>
-          <div class="list-group">
-            <% @place.plates.each do |plate| %>
-              <div class="list-group-item <%= plate.favored ? 'active' : '' %>">
-                <h4 class="list-group-item-heading">
-                  <%= link_to(plate.name, place_plate_path(@place, plate)) %>  
-                </h4>
-                <span class="badge">$ <%= plate.price %> COP</span>
-                <p class="list-group-item-text">
-                  Category: <%= plate.category %><br />
-                  Options: <%= plate.options %>
-                </p>
-              </div>
-            <% end %>
-          </div>
+          <% @place.visits.limit(10).each do |visit| %>
+            <div class="visit">
+              <%= render "partials/visit", :visit => visit %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

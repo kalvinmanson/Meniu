@@ -1,5 +1,5 @@
 <div class="container">
-  <%= render "partials/place", locals: { place: @place } %>
+  <%= render "partials/place", :place => @place %>
   <hr>
   <div class="panel panel-primary">
     <div class="panel-heading">
@@ -8,6 +8,7 @@
     <div class="panel-body">
       <div class="row">
         <div class="col-sm-7">
+          <%= link_to '<i class="fa fa-rocket"></i> I want this'.html_safe, new_place_plate_visit_path(@plate.place, @plate), class: "btn btn-info pull-right btn-lg" %>
           <p>
             Category: <%= @plate.category %><br />
             Tags: <%= @plate.tags %><br />

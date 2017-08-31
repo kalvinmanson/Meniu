@@ -1,5 +1,5 @@
 <div class="container">
-  <%= render "partials/place", locals: { place: @place } %>
+  <%= render "partials/place", :place => @place %>
   <% if current_user == @place.user %>
     <%= link_to '<i class="fa fa-plus"></i> New Plate'.html_safe, new_place_plate_path, class: "btn btn-primary pull-right" %>
   <% end %>
@@ -7,29 +7,7 @@
   <div class="row">
     <% @plates.each do |plate| %>
       <div class="col-sm-4">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h4><%= plate.name %></h4>            
-          </div>
-          <%= link_to image_tag(plate.picture.url(:medium), class: "img-responsive"), place_plate_path(@place, plate), title: plate.name + " | " + plate.place.name %>
-          <div class="panel-body">
-            <p>
-              Category: <%= plate.category %><br />
-              Tags: <%= plate.tags %><br />
-              Options: <%= plate.options %><br />
-              Diners: <%= plate.diners %><br />
-              Category: <%= plate.category %>
-            </p>
-            <h5>Price: $ <%= plate.price %> COP</h5>
-          </div>
-          <% if current_user == @place.user %>
-            <div class="panel-footer">
-              <%= link_to 'Show', place_plate_path(@place, plate), class: "btn btn-default" %>
-              <%= link_to 'Edit', edit_place_plate_path(@place, plate), class: "btn btn-default" %>
-              <%= link_to '<i class="fa fa-trash"></i> Destroy'.html_safe, place_plate_path(@place, plate), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-xs pull-right" %>
-            </div>
-          <% end %>
-        </div>
+        <%= render "partials/plate", :plate => plate %>
       </div>
     <% end %>
   </div>

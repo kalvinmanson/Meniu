@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 	get '/how-it-works', to: 'web#how'
 	get '/set_location', to: 'web#set_location'
 	resources :places do
-	  resources :plates
+	  resources :plates do
+	  	resources :visits
+	  end
 	end
 	resources :users
 	
