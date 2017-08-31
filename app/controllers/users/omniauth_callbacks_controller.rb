@@ -30,4 +30,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     flash[:notice] = "failure"
     redirect_to root_path
   end
+
+  protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 end
