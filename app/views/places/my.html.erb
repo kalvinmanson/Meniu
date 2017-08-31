@@ -36,10 +36,10 @@
         </div>
       </div>
       <div class="panel-footer">
-        <%= link_to 'Destroy', place_path(place), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default pull-right" %>
+        <%= link_to '<i class="fa fa-trash"></i> Destroy'.html_safe, place_path(place), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default pull-right" %>
         <%= link_to 'Show', place_path(place), class: "btn btn-default" %>
         <%= link_to 'Edit', edit_place_path(place), class: "btn btn-default" %>
-        <%= link_to 'Manage Plates', place_plates_path(place), class: "btn btn-default" %>
+        <%= link_to '<i class="fa fa-cutlery"></i> Manage Plates'.html_safe, place_plates_path(place), class: "btn btn-success" %>
       </div>
     </div>
   <% end %>
