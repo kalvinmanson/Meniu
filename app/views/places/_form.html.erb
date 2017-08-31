@@ -52,8 +52,8 @@
         maplat = place.latitude
         maplng = place.longitude
       else
-        maplat = request.location.latitude
-        maplng = request.location.longitude
+        maplat = current_user.latitude
+        maplng = current_user.longitude
       end
     %>
     <script>
