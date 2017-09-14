@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 20170705080715) do
     t.bigint "user_id"
     t.string "quest"
     t.text "result"
+    t.float "latitude", limit: 24
+    t.float "longitude", limit: 24
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_quests_on_user_id"

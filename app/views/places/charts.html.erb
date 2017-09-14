@@ -1,0 +1,27 @@
+<div class="container">
+  <%= render "partials/place", :place => @place %>
+
+  <div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs nav-pills" role="tablist">
+      <li role="presentation" class="active"><a href="#visits" aria-controls="visits" role="tab" data-toggle="tab">Visitas</a></li>
+      <li role="presentation"><a href="#quests" aria-controls="quests" role="tab" data-toggle="tab">Busquedas Cercanas</a></li>
+      <li role="presentation"><a href="#ranks" aria-controls="ranks" role="tab" data-toggle="tab">Calificaciones</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="visits">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="quests">...</div>
+      <div role="tabpanel" class="tab-pane" id="ranks">...</div>
+    </div>
+
+  </div>
+</div>

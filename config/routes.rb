@@ -5,9 +5,11 @@ Rails.application.routes.draw do
 	#Web routes
 	root to: "web#index"
 	get '/places/my', to: 'places#my'
+	#get '/:place_id/charts', to: 'places#charts'
 	get '/how-it-works', to: 'web#how'
 	get '/set_location', to: 'web#set_location'
 	resources :places do
+		get 'charts'
 	  resources :plates do
 	  	resources :visits
 	  end

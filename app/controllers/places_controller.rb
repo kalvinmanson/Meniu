@@ -1,10 +1,15 @@
 class PlacesController < ApplicationController
   load_and_authorize_resource
   before_action :set_place, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :charts]
 
   def my
     @places = current_user.places
+  end
+  def charts
+    @place = Place::find(params[:place_id])
+    @visits = Visit::where(place: @place).order(created_at: :desc)
+    @quests = Quest::order(created_at: :desc)
   end
   # GET /places
   # GET /places.json
@@ -40,6 +45,15 @@ class PlacesController < ApplicationController
 
 
     @plates = @plates.limit(100)
+
+    #save quest
+    quest = Quest.new
+    quest.user = current_user
+    quest.quest = @q
+    quest.latitude = @latitude
+    quest.longitude = @longitude
+    quest.save
+
     #group
   end
 

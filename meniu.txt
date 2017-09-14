@@ -84,3 +84,13 @@ Todo list
 -place search
 -!!update current_user location all time
 -fin by children model in places
+
+
+JS libraries
+-dataTable
+-dateTime Picker
+-Charts by Google
+
+
+ADD COLUMNS TO QUESTS
+REMIGRATE ALL
