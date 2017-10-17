@@ -8,7 +8,6 @@ class CreatePlates < ActiveRecord::Migration[5.1]
       t.boolean :favored
       t.string :tags
       t.string :options
-      t.integer :diners
       t.integer :price
       t.boolean :active
       t.datetime :deleted_at
