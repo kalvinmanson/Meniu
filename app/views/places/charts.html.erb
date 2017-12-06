@@ -1,18 +1,77 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Year', 'Visitas'],
+      <% @days.each do |day| %>
+        ['<%= Date.parse(day).to_formatted_s(:short) %>',  <%= @visits.where(created_at: Date.parse(day).all_day).count %>],
+      <% end %>
+    ]);
+
+    var options = {
+      vAxis: {minValue: 0},
+      chartArea: {'width': '100%'},
+      legend: {'position': 'bottom'}
+    };
+
+    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+</script>
+
 <div class="container">
   <%= render "partials/place", :place => @place %>
-
+  <hr>
   <div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs nav-pills" role="tablist">
       <li role="presentation" class="active"><a href="#visits" aria-controls="visits" role="tab" data-toggle="tab">Visitas</a></li>
       <li role="presentation"><a href="#quests" aria-controls="quests" role="tab" data-toggle="tab">Busquedas Cercanas</a></li>
       <li role="presentation"><a href="#ranks" aria-controls="ranks" role="tab" data-toggle="tab">Calificaciones</a></li>
+      <form class="navbar-form navbar-right" role="filter" method="GET">
+        <div class="form-group">
+          <input type="date" class="form-control" value="<%= @date_from %>" name="date_from">
+        </div>
+        <div class="form-group">
+          <input type="date" class="form-control" value="<%= @date_to %>" name="date_to">
+        </div>
+        <button type="submit" class="btn btn-default">Filtrar</button>
+      </form>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="visits">
+      <div role="tabpanel" class="tab-pane panel panel-default active" id="visits">
         <div class="panel-body">
+          <div class="panel panel-info">
+            <div class="panel-heading">Historial</div>
+            <div class="panel-body">
+              <div id="chart_div" style="width: 100%; height: 500px;"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8">
+
+              <div class="panel panel-info">
+                <div class="panel-heading">Platos populares</div>
+                <div class="panel-body">
+                  Panel content
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-4">
+              <ul class="list-group">
+              <% @visits.order(created_at: :desc).limit(10).each do |visit| %>
+                <%= render "partials/visit", :visit => visit %>
+              <% end %>
+            </ul>
+            </div>
+          </div>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -21,8 +80,16 @@
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
       </div>
-      <div role="tabpanel" class="tab-pane" id="quests">...</div>
-      <div role="tabpanel" class="tab-pane" id="ranks">...</div>
+      <div role="tabpanel" class="tab-pane panel panel-default" id="quests">
+        <div class="panel-body">
+          Lorem
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane panel panel-default" id="ranks">
+        <div class="panel-body">
+          Ipsum
+        </div>
+      </div>
     </div>
 
   </div>

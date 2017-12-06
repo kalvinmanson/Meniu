@@ -52,11 +52,11 @@
 
         </div>
         <div class="col-sm-4">
-          <% @place.visits.limit(10).each do |visit| %>
-            <div class="visit">
+          <ul class="list-group">
+            <% @place.visits.order(created_at: :desc).limit(10).each do |visit| %>
               <%= render "partials/visit", :visit => visit %>
-            </div>
-          <% end %>
+            <% end %>
+          </ul>
         </div>
       </div>
     </div>

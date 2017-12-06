@@ -7,6 +7,18 @@ class PlacesController < ApplicationController
     @places = current_user.places
   end
   def charts
+    #Set days
+    #Quitar dias .days_ago(-1)
+    if params['date_to'].present? && params['date_from'].present?
+      @date_to    = Date.parse(params['date_to'])
+      @date_from  = Date.parse(params['date_from'])
+    else
+      @date_to    = Date.today
+      @date_from  = @date_to.days_ago(7)
+    end
+
+    
+    @days = (@date_from..@date_to).map(&:to_s);
     @place = Place::find(params[:place_id])
     @visits = Visit::where(place: @place).order(created_at: :desc)
     @quests = Quest::order(created_at: :desc)

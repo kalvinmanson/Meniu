@@ -1,1 +1,6 @@
-<%= visit.user.name %> | <%= visit.plate.name %>
+<li class="list-group-item">
+  <span class="badge"><i class="fa fa-star"></i> <%= visit.rank %></span>
+  <strong><%= visit.user.name %></strong><br>
+  <%= visit.plate.name %><br>
+  <small><%= time_ago_in_words(visit.created_at) %></small>
+</li>

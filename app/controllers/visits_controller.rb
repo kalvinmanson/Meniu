@@ -35,6 +35,8 @@ class VisitsController < ApplicationController
     @visit.plate = @plate
     @visit.place = @plate.place
     @visit.user = current_user
+    @visit.rank = visit_params[:rank]
+    @visit.comments = visit_params[:comments]
     if @visit.save
       redirect_to place_plate_path(@plate.place, @plate), notice: 'Visit was successfully created.'
     else
@@ -60,6 +62,9 @@ class VisitsController < ApplicationController
   end
 
   private
+    def visit_params
+      params.require(:visit).permit(:rank, :comments)
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_plate
       @visit = Visit.find(params[:id])
